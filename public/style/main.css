@@ -1662,7 +1662,7 @@ footer {
   .login-wraper .login-window {
     width: 35%;
     top: 50%;
-    left: 5%;
+    left: -5%;
     margin-left: 0;
     margin-top: 0; }
     .login-wraper .login-window .l-head {
@@ -1721,7 +1721,7 @@ footer {
 .banner-text {
   position: relative;
   top: 100%;
-  left: 10%;
+  left: 7%;
   width: 60%; }
   .banner-text .line {
     height: 1px;
