@@ -1657,14 +1657,14 @@ footer {
     width: 100%; }
 
 .login-wraper {
-  position: relative; }
+  display: flex;
+  flex-direction: row; }
   .login-wraper .login-window {
-    position: absolute;
-    width: 570px;
+    width: 35%;
     top: 50%;
-    left: 50%;
-    margin-left: -2px;
-    margin-top: -288px; }
+    left: 5%;
+    margin-left: 0;
+    margin-top: 0; }
     .login-wraper .login-window .l-head {
       background-color: #ffffff;
       padding: 40px;
@@ -1719,19 +1719,18 @@ footer {
         text-decoration: underline; }
 
 .banner-text {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  margin-top: -50px;
-  margin-left: -580px;
-  width: 550px; }
+  position: relative;
+  top: 100%;
+  left: 10%;
+  width: 60%; }
   .banner-text .line {
     height: 1px;
     border-top: solid 1px #ea2c5a;
     padding-bottom: 50px;
     width: 280px; }
   .banner-text .b-text {
-    color: #ffffff;
+    width: 60%;
+    color: #7e7e7e;
     font-size: 80px;
     text-align: left;
     line-height: 80px; }
@@ -1749,7 +1748,7 @@ footer {
 @media (min-width: 100px) and (max-width: 1365px) {
   .banner-text {
     position: relative;
-    top: 0;
+    top: 50%;
     left: 0;
     margin-top: 0;
     margin-left: 0;
@@ -1767,7 +1766,7 @@ footer {
       color: #a1a1a1;
       text-align: center; }
   .login-wraper .login-window {
-    position: relative;
+    position: absolute;
     width: auto;
     top: 0;
     left: 0;

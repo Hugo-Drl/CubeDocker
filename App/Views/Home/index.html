@@ -7,11 +7,10 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-
                 <div class="content-block head-div">
                     <div class="cb-header">
                         <div class="row">
-                            <div class="col-lg-10 col-sm-10 col-xs-8">
+                            <div class="col-lg-8 col-sm-8 col-xs-8">
                                 <ul class="list-inline">
                                     <li>
                                         <a href="#" class="color-active">
@@ -42,16 +41,13 @@
                     </div>
 
                     <div class="cb-content">
-                        <div class="row" id="articlelist">
-
-                        </div>
+                        <div class="row" id="articlelist"></div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
 {% endblock %}
 
 
@@ -70,7 +66,7 @@
         }
 
         function renderProduct($product){
-             $('<div class="col-lg-4 col-sm-6 articleitem" id="article-pattern">' +
+            $('<div class="col-lg-4 col-sm-6 articleitem" id="article-pattern">' +
                 '                                <div class="b-article">' +
                 '                                    <div class="v-img">' +
                 '                                        <a href="/product/'+ $product.id + '">' +
@@ -85,7 +81,7 @@
                 '                                    </div>' +
                 '                                </div>' +
                 '</div>')
-             .appendTo($('#articlelist'));
+            .appendTo($('#articlelist'));
         }
 
         $( document ).ready(function() {
