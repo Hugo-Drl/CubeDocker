@@ -21,6 +21,7 @@
   }
   .cb-content {
     margin-bottom: $space-sms;
+
     @media only screen and(max-width: 767px) {
       margin-bottom: 12px;
     }
@@ -570,7 +571,8 @@
 }
 
 .cb-content {
-    width: 130% !important; // FIX INTERNET EXPLORER ;
+    width: 100% !important; // FIX INTERNET EXPLORER ;
+    
 }
 
 /*
