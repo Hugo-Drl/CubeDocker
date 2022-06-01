@@ -626,7 +626,9 @@ video {
 * Content Index
 */
 .content-wrapper {
-  background-color: #fbfdfe; }
+  background-color: #fbfdfe; 
+  margin: 0 10px;
+}
 
 .content-block .cb-header {
   padding: 20px 0;
@@ -1702,6 +1704,7 @@ footer {
       font-size: 14px;
       color: #7e7e7e; }
   .login-wraper .ortext {
+    text-align: center;
     padding-top: 25px;
     color: #7e7e7e; }
   .login-wraper .signuptext {
@@ -1712,6 +1715,7 @@ footer {
     .login-wraper .signuptext.text-right {
       text-align: right; }
   .login-wraper .forgottext {
+    text-align: center;
     margin-top: 25px; }
     .login-wraper .forgottext a {
       color: #7e7e7e; }
@@ -1765,12 +1769,12 @@ footer {
       color: #a1a1a1;
       text-align: center; }
   .login-wraper .login-window {
-    position: absolute;
+    position: relative;
     width: auto;
     top: 0;
     left: 0;
-    margin-left: 0;
-    margin-top: 0; }
+    margin-left: auto;
+    margin-right: auto; }
     .login-wraper .login-window .l-head {
       padding: 20px 10px; }
     .login-wraper .login-window .l-form {
