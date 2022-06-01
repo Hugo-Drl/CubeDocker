@@ -1,0 +1,1 @@
+{"version":1,"defects":{"Phpunit\\LoginTest::testGetRoute":4,"Phpunit\\LoginTest::test_register":3,"Phpunit\\LoginTest::test_logout":4,"Phpunit\\LoginTest::test_login":4},"times":{"Phpunit\\LoginTest::testGetRoute":0.042,"Phpunit\\LoginTest::test_register":0.033,"Phpunit\\LoginTest::test_login":0.002,"Phpunit\\LoginTest::test_logout":0.002}}

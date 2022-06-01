@@ -51,9 +51,9 @@ class User extends \Core\Controller
 
             // validation
 
-            $this->register($f);
+            $this->registerExec($f);
 
-            $this->login($f);
+            $this->loginExec($f);
             header('Location: /');
         }
 
@@ -75,7 +75,7 @@ class User extends \Core\Controller
     /*
      * Fonction privée pour enregister un utilisateur
      */
-    private function register($data)
+    public function registerExec($data)
     {
         try {
             // Generate a salt, which will be applied to the during the password
@@ -98,7 +98,7 @@ class User extends \Core\Controller
     }
 
     
-    private function login($data){
+    public function loginExec($data){
         try {
             if(!isset($data['email'])){
                 throw new Exception('TODO');
