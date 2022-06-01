@@ -81,8 +81,8 @@ class User extends \Core\Controller
             // Generate a salt, which will be applied to the during the password
             // hashing process.
             if(preg_match('^[a-zA-Z0-9_.-]*$', $data['email'])){
-                if(preg_match('^[a-zA-Z0-9_.-]*$', $data['email'])){
-                    if(preg_match('^[a-zA-Z0-9_.-]*$', $data['email'])){
+                if(preg_match('^[a-zA-Z0-9_.-]*$', $data['username'])){
+                    if(preg_match('^[a-zA-Z0-9_.-]*$', $data['password'])){
                         $salt = Hash::generateSalt(32);
                         $userID = \App\Models\User::createUser([
                             "email" => $data['email'],
