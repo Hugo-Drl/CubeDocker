@@ -97,6 +97,7 @@ class User extends \Core\Controller
         }
     }
 
+    
     private function login($data){
         try {
             if(!isset($data['email'])){
