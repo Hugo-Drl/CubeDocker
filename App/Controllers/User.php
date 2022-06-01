@@ -80,17 +80,26 @@ class User extends \Core\Controller
         try {
             // Generate a salt, which will be applied to the during the password
             // hashing process.
-            $salt = Hash::generateSalt(32);
-
-            $userID = \App\Models\User::createUser([
-                "email" => $data['email'],
-                "username" => $data['username'],
-                "password" => Hash::generate($data['password'], $salt),
-                "salt" => $salt
-            ]);
-
-            return $userID;
-
+            if(preg_match('^[a-zA-Z0-9_.-]*$', $data['email'])){
+                if(preg_match('^[a-zA-Z0-9_.-]*$', $data['email'])){
+                    if(preg_match('^[a-zA-Z0-9_.-]*$', $data['email'])){
+                        $salt = Hash::generateSalt(32);
+                        $userID = \App\Models\User::createUser([
+                            "email" => $data['email'],
+                            "username" => $data['username'],
+                            "password" => Hash::generate($data['password'], $salt),
+                            "salt" => $salt
+                        ]);
+                        return $userID;
+                    }else{
+                        throw new Exception('Reg dont match');
+                    }
+                }else{
+                    throw new Exception('Reg dont match');
+                }
+            }else{
+                throw new Exception('Reg dont match');
+            }
         } catch (Exception $ex) {
             // TODO : Set flash if error : utiliser la fonction en dessous
             /* Utility\Flash::danger($ex->getMessage());*/
@@ -100,26 +109,35 @@ class User extends \Core\Controller
     
     private function loginExec($data){
         try {
-            if(!isset($data['email'])){
-                throw new Exception('TODO');
+            if (preg_match('^[a-zA-Z0-9_.-]*$',$data['email'])){
+                if(preg_match('^[a-zA-Z0-9_.-]*$',$data['password'])){
+                    if(!isset($data['email'])){
+                        throw new Exception('TODO');
+                    }
+        
+                    $user = \App\Models\User::getByLogin($data['email']);
+        
+                    if (Hash::generate($data['password'], $user['salt']) !== $user['password']) {
+                        return false;
+                    }
+        
+                    // TODO: Create a remember me cookie if the user has selected the option
+                    // to remained logged in on the login form.
+                    // https://github.com/andrewdyer/php-mvc-register-login/blob/development/www/app/Model/UserLogin.php#L86
+        
+                    $_SESSION['user'] = array(
+                        'id' => $user['id'],
+                        'username' => $user['username'],
+                    );
+        
+                    return true;
+                }else{
+                    throw new Exception('Reg dont match');
+                }
+            }else{
+                throw new Exception('Reg dont match');
             }
-
-            $user = \App\Models\User::getByLogin($data['email']);
-
-            if (Hash::generate($data['password'], $user['salt']) !== $user['password']) {
-                return false;
-            }
-
-            // TODO: Create a remember me cookie if the user has selected the option
-            // to remained logged in on the login form.
-            // https://github.com/andrewdyer/php-mvc-register-login/blob/development/www/app/Model/UserLogin.php#L86
-
-            $_SESSION['user'] = array(
-                'id' => $user['id'],
-                'username' => $user['username'],
-            );
-
-            return true;
+            
 
         } catch (Exception $ex) {
             // TODO : Set flash if error
