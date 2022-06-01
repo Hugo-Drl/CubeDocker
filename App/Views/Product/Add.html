@@ -38,7 +38,8 @@
                             <div >
                                 <div class="form-group">
                                     <label for="e2">Ville</label>
-                                    <input class="form-control cityAutoComplete" type="text" autocomplete="on" required/>
+                                    <input class="form-control cityAutoComplete" type="text" autocomplete="off" id="search-box" required/>
+                                    <ul class="list"></ul>
                                 </div>
                             </div>
 
@@ -65,25 +66,75 @@
         </form>
     </div>
 </div>
+<style>
+    ul{
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    .list{
+        width: 100%;
+        background-color: #ffffff;
+        border-radius: 0 0 5px 5px;
+    }
+    .list-item{
+        padding: 10px 0px;
+    }
+    .list-item:hover{
+        background-color: #dddddd;
+    }
+    </style>
 {% endblock body %}
 
 {% block javascript %}
     <script type="text/javascript">
+        let input = document.getElementById("search-box")
         $('.cityAutoComplete').autoComplete({
             resolver: 'custom',
             events: {
                 search: function (qry, callback) {
                     // let's do a custom ajax call
+                    $("#search-box").css("background","#FFF url(LoaderIcon.gif) no-repeat 165px");
                     $.ajax(
                         '/api/cities',
                         {
                             data: { 'query': qry}
+                            
                         }
                     ).done(function (res) {
-                        callback(res)
+                        console.log(res);
+                        removeElement();
+                        for(let i of res){
+                            let choice = document.createElement("li")
+                            choice.classList.add("list-item")
+                            choice.style.cursor = "pointer"
+                            choice.setAttribute("onclick", "displayNames('"+ i +"')")
+                            let word = "<b>" + i.substr(0, input.value.length) + "</b>"
+                            word += i.substr(input.value.length)
+                            choice.innerHTML = word
+                            console.log(choice);
+                            document.querySelector(".list").appendChild(choice)
+                        }
                     });
                 }
             }
         });
+
+        function displayNames(value){
+            input.value = value;
+            removeElement();
+        }
+
+        function removeElement(){
+            let items = document.querySelectorAll(".list-item")
+            items.forEach((item) => {
+                item.remove();
+            })
+        }
+        
     </script>
+{% endblock %}
+{% block css %}
+
+    
 {% endblock %}
