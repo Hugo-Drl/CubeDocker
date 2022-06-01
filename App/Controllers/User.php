@@ -23,6 +23,7 @@ class User extends \Core\Controller
      */
     public function loginAction()
     {
+        $this->loginFromCookie();
         if(isset($_POST['submit'])){
             $f = $_POST;
 
@@ -48,7 +49,7 @@ class User extends \Core\Controller
             if($f['password'] !== $f['password-check']){
                 // TODO: Gestion d'erreur côté utilisateur
             }
-
+            
             // validation
 
             $this->registerExec($f);
@@ -105,7 +106,19 @@ class User extends \Core\Controller
             /* Utility\Flash::danger($ex->getMessage());*/
         }
     }
-
+    private function loginFromCookie(){
+        if(!empty($_COOKIE['email'])){
+            $user = \App\Models\User::getByLogin($_COOKIE['email']);
+            $_SESSION['user'] = array(
+                'id' => $user['id'],
+                'username' => $user['username'],
+            );
+            return true;
+        }else{
+            return null;
+        }
+        
+    }
     
     private function loginExec($data){
         try {
@@ -120,11 +133,12 @@ class User extends \Core\Controller
                     if (Hash::generate($data['password'], $user['salt']) !== $user['password']) {
                         return false;
                     }
-        
-                    // TODO: Create a remember me cookie if the user has selected the option
-                    // to remained logged in on the login form.
+                    
+                    if(!empty($_POST["remember"])) {
+                        setcookie ("email",$data["email"],time()+ 3600);
+                    }
                     // https://github.com/andrewdyer/php-mvc-register-login/blob/development/www/app/Model/UserLogin.php#L86
-        
+
                     $_SESSION['user'] = array(
                         'id' => $user['id'],
                         'username' => $user['username'],
