@@ -1695,6 +1695,13 @@ footer {
   .login-wraper .checkbox {
     font-weight: normal; }
     @media only screen and (max-width: 767px) {
+      .login-wraper .login-window {
+        position: relative;
+        width: 80%;
+        top: 0;
+        left: 0;
+        margin-left: auto;
+        margin-right: auto; }
       .login-wraper .checkbox {
         margin-bottom: 30px; } }
     .login-wraper .checkbox p {
