@@ -23,7 +23,6 @@ class User extends \Core\Controller
      */
     public function loginAction()
     {
-        $this->loginFromCookie();
         if(isset($_POST['submit'])){
             $f = $_POST;
 
@@ -76,14 +75,12 @@ class User extends \Core\Controller
     /*
      * Fonction privée pour enregister un utilisateur
      */
-    private function registerExec($data)
+    public function registerExec($data)
     {
         try {
             // Generate a salt, which will be applied to the during the password
             // hashing process.
-            if(preg_match('^[a-zA-Z0-9_.-]*$', $data['email'])){
-                if(preg_match('^[a-zA-Z0-9_.-]*$', $data['username'])){
-                    if(preg_match('^[a-zA-Z0-9_.-]*$', $data['password'])){
+            
                         $salt = Hash::generateSalt(32);
                         $userID = \App\Models\User::createUser([
                             "email" => $data['email'],
@@ -92,38 +89,29 @@ class User extends \Core\Controller
                             "salt" => $salt
                         ]);
                         return $userID;
-                    }else{
-                        throw new Exception('Reg dont match');
-                    }
-                }else{
-                    throw new Exception('Reg dont match');
-                }
-            }else{
-                throw new Exception('Reg dont match');
-            }
         } catch (Exception $ex) {
             // TODO : Set flash if error : utiliser la fonction en dessous
             /* Utility\Flash::danger($ex->getMessage());*/
+            return $ex -> getMessage();
         }
     }
-    private function loginFromCookie(){
-        if(!empty($_COOKIE['email'])){
-            $user = \App\Models\User::getByLogin($_COOKIE['email']);
-            $_SESSION['user'] = array(
-                'id' => $user['id'],
-                'username' => $user['username'],
-            );
-            return true;
-        }else{
-            return null;
-        }
+    // private function loginFromCookie(){
+    //     if(!empty($_COOKIE['email'])){
+    //         $user = \App\Models\User::getByLogin($_COOKIE['email']);
+    //         $_SESSION['user'] = array(
+    //             'id' => $user['id'],
+    //             'username' => $user['username'],
+    //         );
+    //         return true;
+    //     }else{
+    //         return null;
+    //     }
         
-    }
+    // }
     
-    private function loginExec($data){
+    public function loginExec($data){
         try {
-            if (preg_match('^[a-zA-Z0-9_.-]*$',$data['email'])){
-                if(preg_match('^[a-zA-Z0-9_.-]*$',$data['password'])){
+           
                     if(!isset($data['email'])){
                         throw new Exception('TODO');
                     }
@@ -133,11 +121,6 @@ class User extends \Core\Controller
                     if (Hash::generate($data['password'], $user['salt']) !== $user['password']) {
                         return false;
                     }
-                    
-                    if(!empty($_POST["remember"])) {
-                        setcookie ("email",$data["email"],time()+ 3600);
-                    }
-                    // https://github.com/andrewdyer/php-mvc-register-login/blob/development/www/app/Model/UserLogin.php#L86
 
                     $_SESSION['user'] = array(
                         'id' => $user['id'],
@@ -145,14 +128,7 @@ class User extends \Core\Controller
                     );
         
                     return true;
-                }else{
-                    throw new Exception('Reg dont match');
-                }
-            }else{
-                throw new Exception('Reg dont match');
-            }
             
-
         } catch (Exception $ex) {
             // TODO : Set flash if error
             /* Utility\Flash::danger($ex->getMessage());*/
